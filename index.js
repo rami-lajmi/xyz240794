@@ -1,33 +1,37 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const request = require('request');
-const app = express();
+'use strict'
 
-const token = process.env.FB_VERIFY_TOKEN
-const access = process.env.FB_ACCESS_TOKEN
+const token = process.env.FB_PAGE_ACCESS_TOKEN
+const vtoken = process.env.FB_VERIFY_ACCESS_TOKEN
 
-app.set('port', (process.env.PORT || 5000));
+const express = require('express')
+const bodyParser = require('body-parser')
+const request = require('request')
+const app = express()
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.set('port', (process.env.PORT || 5000))
 
+// Process application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}))
 
-// Server index page
+// Process application/json
+app.use(bodyParser.json())
+
+// Index route
 app.get('/', function (req, res) {
-  res.send('Hello!');
-});
+    res.send('Hello world, I am a chat bot')
+})
 
-// Facebook Webhook
-// Used for verification
+// for Facebook verification
 app.get('/webhook/', function (req, res) {
-  if (req.query['hub.verify_token'] === token) {
-    res.status(200).send(req.query['hub.challenge']);
-  }
-    res.send('No entry');
-});
+    if (req.query['hub.verify_token'] === vtoken) {
+        res.send(req.query['hub.challenge'])
+    }
+    res.send('No sir')
+})
 
-app.listen(app.get('port'), function(){
-	console.log('running on port', app.get('port'))
+// Spin up the server
+app.listen(app.get('port'), function() {
+    console.log('running on port', app.get('port'))
 })
 
 app.post('/webhook/', function (req, res) {
@@ -51,6 +55,7 @@ app.post('/webhook/', function (req, res) {
     }
     res.sendStatus(200)
   })
+
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
