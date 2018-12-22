@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
+const token = process.env.FB_VERIFY_TOKEN
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -17,7 +19,7 @@ app.get('/', function (req, res) {
 // Facebook Webhook
 // Used for verification
 app.get('/webhook', function (req, res) {
-  if (req.query['hub.verify_token'] === 'youmakethis') {
+  if (req.query['hub.verify_token'] === token) {
     res.status(200).send(req.query['hub.challenge']);
   }
     res.send('No entry');
