@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
 // Facebook Webhook
 // Used for verification
 app.get('/webhook', function (req, res) {
-  if (req.query['hub.verify_token'] === 'my_voice_is_my_password_token') {
+  if (req.query['hub.verify_token'] === 'youmakethis') {
     res.status(200).send(req.query['hub.challenge']);
   }
     res.send('No entry');
