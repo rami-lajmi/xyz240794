@@ -1,0 +1,31 @@
+{
+  "name": "pharmobot",
+  "version": "1.0.0",
+  "description": "Trouver vos médicaments et vaccins dans la pharmacie la plus proche",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rlajmi24/xyz240794.git"
+  },
+  "keywords": [
+    "pharmo",
+    "pharmobot",
+    "rami",
+    "lajmi",
+    "santé",
+    "esanté"
+  ],
+  "author": "Rami Lajmi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rlajmi24/xyz240794/issues"
+  },
+  "homepage": "https://github.com/rlajmi24/xyz240794#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
