@@ -1,25 +1,28 @@
-var express = require("express");
-var request = require("request");
-var bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
+const request = require('request');
+const app = express();
 
-var app = express();
+app.set('port', (process.env.PORT || 5000));
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.listen((process.env.PORT || 5000));
+
 
 // Server index page
-app.get("/", function (req, res) {
-  res.send("Deployed!");
+app.get('/', function (req, res) {
+  res.send('Hello!');
 });
 
 // Facebook Webhook
 // Used for verification
-app.get("/webhook", function (req, res) {
-  if (req.query["hub.verify_token"] === "EAAgJFzaHm4kBAGW0pPh8OyNkvy4vrGXfYiXbtlI4HFXSsSlYarhNVqTwHuTZCRPvsNJQJaD9UOfk46yahg5RPAtiPAtOZBzpJwDyu56lmasUW37knOGwZAWnlHjzmhxKoTQsqvIDT6IK9oxpmQMLypYjL9NqdoWAUCwGHFIcQZDZD") {
-    console.log("Verified webhook");
-    res.status(200).send(req.query["hub.challenge"]);
-  } else {
-    console.error("Verification failed. The tokens do not match.");
-    res.sendStatus(403);
+app.get('/webhook', function (req, res) {
+  if (req.query['hub.verify_token'] === 'my_voice_is_my_password_token') {
+    res.status(200).send(req.query['hub.challenge']);
   }
+    res.send('No entry');
 });
+
+app.listen(app.get('port'), function(){
+	console.log('running on port', app.get('port'))
+})
